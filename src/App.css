@@ -23,6 +23,7 @@ table td {
 }
 
 input {
+  height: 30px;
   border: none;
 }
 
@@ -46,4 +47,10 @@ input {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+
+select {
+  height: 30px;
+  border: none;
+  width: fit-content;
 }

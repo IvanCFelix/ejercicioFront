@@ -2,12 +2,38 @@ import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
 function App() {
-  const [reservations, setReservations] = React.useState([{}]);
+  const [reservations, setReservations] = React.useState([
+    { name: "", date: "", time: "", airline: "", payment: "", comments: "" },
+  ]);
 
+  //Funcion para insertar un nuevo elemento en el array de reservaciones
   const pushReservation = () => {
-    setReservations([...reservations, {}]);
+    setReservations([
+      ...reservations,
+      { name: "", date: "", time: "", airline: "", payment: "", comments: "" },
+    ]);
     console.log(reservations);
   };
+
+  //funcion para eliminar del array una reservacion basada en el indice de su posicion
+  const deleteReservation = (position) => {
+    const arrayNew = [...reservations];
+    arrayNew.splice(position, 1);
+    setReservations(arrayNew);
+    console.log(reservations);
+  };
+
+  const updateReservation = ({ event, position }) => {
+    //Se optienen los valores de los inputs y se asignan a sus campos
+    let objUpdated = { ...reservations[position] };
+    objUpdated = {
+      ...reservations[position],
+      [event.target.name]: event.target.value,
+    };
+
+    console.log(objUpdated);
+  };
+
   return (
     <div className="App">
       <div className="container">
@@ -18,7 +44,7 @@ function App() {
           Crear reservacion
         </button>
         <table>
-          <tr>
+          <thead>
             <th>Nombre </th>
             <th> Fecha</th>
             <th>Hora</th>
@@ -26,30 +52,81 @@ function App() {
             <th>Forma de pago</th>
             <th>Comentarios</th>
             <th>Acciones</th>
-          </tr>
+          </thead>
           {reservations.map((reservation, idx) => {
             return (
               <tr key={idx}>
                 <td>
-                  <input type="text"></input>
+                  <input
+                    type="text"
+                    name="name"
+                    value={reservation.name}
+                    onChange={(e) =>
+                      updateReservation({ event: e, position: idx })
+                    }
+                  ></input>
                 </td>
                 <td>
-                  <input type="text"></input>
+                  <input
+                    type="date"
+                    name="date"
+                    onChange={(e) =>
+                      updateReservation({ event: e, position: idx })
+                    }
+                    value={reservation.date}
+                  ></input>
                 </td>
                 <td>
-                  <input type="text"></input>
+                  <input
+                    type="time"
+                    name="time"
+                    value={reservation.time}
+                    onChange={(e) =>
+                      updateReservation({ event: e, position: idx })
+                    }
+                  ></input>
                 </td>
                 <td>
-                  <input type="text"></input>
+                  <input
+                    type="text"
+                    name="airline"
+                    value={reservation.airline}
+                    onChange={(e) =>
+                      updateReservation({ event: e, position: idx })
+                    }
+                  ></input>
                 </td>
                 <td>
-                  <input type="text"></input>
+                  <select
+                    type="text"
+                    name="payment"
+                    value={reservation.payment}
+                    onChange={(e) =>
+                      updateReservation({ event: e, position: idx })
+                    }
+                  >
+                    <option disabled></option>
+                    <option>Efectivo</option>
+                    <option>Tarjeta</option>
+                  </select>
                 </td>
                 <td>
-                  <input type="text"></input>
+                  <input
+                    type="text"
+                    name="comments"
+                    value={reservation.comments}
+                    onChange={(e) =>
+                      updateReservation({ event: e, position: idx })
+                    }
+                  ></input>
                 </td>
                 <td>
-                  <button className="btn-delete">Eliminar</button>
+                  <button
+                    className="btn-delete"
+                    onClick={() => deleteReservation(idx)}
+                  >
+                    Eliminar
+                  </button>
                 </td>
               </tr>
             );
