@@ -16,13 +16,20 @@ table {
 table th,
 table td {
   border: 1px solid rgb(211, 210, 210);
+
   justify-content: center;
   display: flexbox;
   justify-content: center;
   align-items: center;
 }
 
+th {
+  padding: 0.2rem;
+  width: fit-content;
+}
+
 input {
+  padding: 10px;
   height: 30px;
   border: none;
 }
@@ -34,7 +41,10 @@ input {
   border-radius: 10px;
   color: white;
   height: 30px;
+  align-self: flex-end;
   cursor: pointer;
+  margin: 0.5rem;
+  margin-right: 15%;
 }
 
 .btn-delete {
@@ -51,6 +61,6 @@ input {
 
 select {
   height: 30px;
-  border: none;
+
   width: fit-content;
 }

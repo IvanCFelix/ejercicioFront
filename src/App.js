@@ -2,6 +2,16 @@ import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
 function App() {
+  const dataFields = [
+    "Nombre",
+    "Fecha",
+    "Hora",
+    "Aerolinea",
+    "Metodo de pago",
+    "Comentarios",
+    "Acciones",
+  ];
+
   const [reservations, setReservations] = React.useState([
     { name: "", date: "", time: "", airline: "", payment: "", comments: "" },
   ]);
@@ -30,9 +40,14 @@ function App() {
       ...reservations[position],
       [event.target.name]: event.target.value,
     };
-
-    console.log(objUpdated);
+    //Se remplaza el objeto dentro del array de reservaciones
+    const arrayUpdated = [...reservations];
+    arrayUpdated.splice(position, 1, objUpdated);
+    //se actualiza el estado que almacena el array
+    setReservations(arrayUpdated);
   };
+
+  console.log(reservations);
 
   return (
     <div className="App">
@@ -45,13 +60,9 @@ function App() {
         </button>
         <table>
           <thead>
-            <th>Nombre </th>
-            <th> Fecha</th>
-            <th>Hora</th>
-            <th>Aerolinea </th>
-            <th>Forma de pago</th>
-            <th>Comentarios</th>
-            <th>Acciones</th>
+            {dataFields.map((field) => {
+              return <th>{field} </th>;
+            })}
           </thead>
           {reservations.map((reservation, idx) => {
             return (
